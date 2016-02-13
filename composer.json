@@ -1,0 +1,19 @@
+{
+    "name": "forfun/php_array",
+    "description": "PHP array wrapper",
+    "keywords": ["array"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Alex Anisimov",
+            "email": "a.aleksu+github@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "ForFun\\Array\\": "lib/"
+        }
+    }
+}
