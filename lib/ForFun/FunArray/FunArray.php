@@ -38,7 +38,7 @@ class FunArray extends \ArrayObject implements ArrayInterface
             $node = $node[$keys[0]];
         }
 
-        return $this->has($key, $node[$keys[0]]);
+        return $this->has($key, $node);
     }
 
     public function get($key = null, $node = null)
