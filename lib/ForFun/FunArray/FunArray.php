@@ -33,13 +33,12 @@ class FunArray extends \ArrayObject implements ArrayInterface
     private function hasChain($key, $node = null)
     {
         $keys = explode('/', $key);
-        if(count($keys) == 1) {
-            return $node[$key];
+        if(count($keys) > 1) {
+            $key = str_replace($keys[0] . '/', '', $key);
+            $node = $node[$keys[0]];
         }
 
-        $key = str_replace($keys[0] . '/', '', $key);
-
-        return $this->get($key, $node[$keys[0]]);
+        return $this->has($key, $node[$keys[0]]);
     }
 
     public function get($key = null, $node = null)
