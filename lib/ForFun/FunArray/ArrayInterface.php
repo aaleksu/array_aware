@@ -1,6 +1,6 @@
 <?php
 
-namespace ForFun\Array;
+namespace ForFun\FunArray;
 
 interface ArrayInterface
 {

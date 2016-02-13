@@ -1,8 +1,8 @@
 <?php
 
-namespace ForFun\Array;
+namespace ForFun\FunArray;
 
-class Array extends \ArrayObject
+class FunArray extends \ArrayObject implements ArrayInterface
 {
     private $input;
 
