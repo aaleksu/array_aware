@@ -25,6 +25,8 @@ trait ArrayAwareTrait
     // $instance->has('a/b/c');
     private function hasChain($key, $node = null)
     {
+        $this->filterChainKey($key);
+
         $keys = explode('/', $key);
         if(count($keys) > 1) {
             $key = str_replace($keys[0] . '/', '', $key);
@@ -56,8 +58,10 @@ trait ArrayAwareTrait
     }
 
     // $instance->get('a/b/c');
-    public function getChain($key, $node = null)
+    private function getChain($key, $node = null)
     {
+        $this->filterChainKey($key);
+
         $keys = explode('/', $key);
         if(count($keys) == 1) {
             return $node[$key];
@@ -66,5 +70,12 @@ trait ArrayAwareTrait
         $key = str_replace($keys[0] . '/', '', $key);
 
         return $this->get($key, $node[$keys[0]]);
+    }
+
+    private filterChainKey(&$key)
+    {
+        if(preg_match('/(^\/|\/$)/', $key)) {
+            $key = preg_replace('/(^\/|\/$)/', '', $key);
+        }
     }
 }
