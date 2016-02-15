@@ -4,7 +4,7 @@ namespace ForFun\ArrayAware;
 
 use ForFun\ArrayAware\Traits\ArrayAwareTrait;
 
-class FunArray implements ArrayAwareInterface
+class ArrayAware implements ArrayAwareInterface
 {
     use ArrayAwareTrait;
 
