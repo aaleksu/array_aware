@@ -72,7 +72,7 @@ trait ArrayAwareTrait
         return $this->get($key, $node[$keys[0]]);
     }
 
-    private filterChainKey(&$key)
+    private function filterChainKey(&$key)
     {
         if(preg_match('/(^\/|\/$)/', $key)) {
             $key = preg_replace('/(^\/|\/$)/', '', $key);
