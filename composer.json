@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
         "psr-0": {
-            "ForFun\\ArrayArray\\": "lib/"
+            "ForFun\\ArrayAware\\": "lib/"
         }
     }
 }
