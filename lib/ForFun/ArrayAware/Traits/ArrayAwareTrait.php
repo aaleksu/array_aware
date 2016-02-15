@@ -1,16 +1,9 @@
 <?php
 
-namespace ForFun\FunArray;
+namespace ForFun\ArrayAware\Traits;
 
-class FunArray extends \ArrayObject implements ArrayInterface
+trait ArrayAwareTrait
 {
-    private $input;
-
-    public function __construct(array $input = [])
-    {
-        $this->input = $input;
-    }
-
     public function keys()
     {
         return array_keys($this->input);

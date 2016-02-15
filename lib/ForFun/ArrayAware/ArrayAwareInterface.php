@@ -1,8 +1,8 @@
 <?php
 
-namespace ForFun\FunArray;
+namespace ForFun\ArrayAware;
 
-interface ArrayInterface
+interface ArrayAwareInterface
 {
     public function keys();
     public function has($key, $node = null);
