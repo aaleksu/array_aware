@@ -1,5 +1,7 @@
-# struct_aware
-php structure aware trait
+# array_aware
+php array structure aware lib
+
+Provides a simple (even stupid) interface to work with an array.
 
 Usage
 -----
