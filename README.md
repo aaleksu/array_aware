@@ -28,8 +28,8 @@ Surely you can get value of 'd' key by asking it directly:
 $aArray['a']['b']['c']['d'];
 ```
 
-It's OK but imagine you have to do it in several places (because of legacy for example (of because of prototyping, for example)).
-You'd like to work with this array as with object. So you can do withh ArrayAware:
+It's OK but imagine you have to do it in several places (because of legacy (or because of prototyping), for example).
+You'd like to work with this array as with object. So you can do with ArrayAware:
 
 ```php
 $oArray = new ArrayAware($aArray);
