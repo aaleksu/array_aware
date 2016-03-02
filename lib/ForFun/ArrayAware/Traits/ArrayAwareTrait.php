@@ -30,6 +30,9 @@ trait ArrayAwareTrait
         $keys = explode('/', $key);
         if(count($keys) > 1) {
             $key = str_replace($keys[0] . '/', '', $key);
+            if(!$this->has($keys[0], $node)) {
+                return null;
+            }
             $node = $node[$keys[0]];
         }
 
