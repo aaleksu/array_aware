@@ -29,7 +29,7 @@ trait ArrayAwareTrait
 
         $keys = explode('/', $key);
         if(count($keys) > 1) {
-            $key = str_replace($keys[0] . '/', '', $key);
+            $key = join('/', array_slice($keys, 1));
             if(!$this->has($keys[0], $node)) {
                 return null;
             }
@@ -70,7 +70,7 @@ trait ArrayAwareTrait
             return $node[$key];
         }
 
-        $key = str_replace($keys[0] . '/', '', $key);
+        $key = join('/', array_slice($keys, 1));
 
         return $this->get($key, $node[$keys[0]]);
     }
