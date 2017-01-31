@@ -14,4 +14,9 @@ class ArrayAware implements ArrayAwareInterface
     {
         $this->input = $input;
     }
+    
+    public function toJson($mode = 0)
+	{
+		return json_encode($this->input, $mode);
+	}
 }
