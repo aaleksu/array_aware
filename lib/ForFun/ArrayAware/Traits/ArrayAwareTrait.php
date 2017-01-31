@@ -4,81 +4,89 @@ namespace ForFun\ArrayAware\Traits;
 
 trait ArrayAwareTrait
 {
-    public function keys()
-    {
-        return array_keys($this->input);
-    }
+    public function has(string $key) : bool
+	{
+		if(!is_array($this->context)) {
+			return false;
+		}
 
-    public function has($key, $node = null)
-    {
-        if($node == null) {
-            $node = $this->input;
-        }
+		return array_key_exists($key, $this->context);
+	}
 
-        if(preg_match('/\//', $key)) {
-            return $this->hasChain($key, $node);
-        }
+	public function get(string $key = null, $defaultValue = null)
+	{
+		if($key == null) {
+			return $this->all();
+		}
 
-        return isset($node[$key]);
-    }
+		if(preg_match('/\//', $key)) {
+			return $this->getChain($key, $defaultValue);
+		}
 
-    // $instance->has('a/b/c');
-    private function hasChain($key, $node = null)
-    {
-        $this->filterChainKey($key);
+		if($this->has($key)) {
+			$context = $this->context;
+			$this->context = $this->input;
 
-        $keys = explode('/', $key);
-        if(count($keys) > 1) {
-            $key = join('/', array_slice($keys, 1));
-            if(!$this->has($keys[0], $node)) {
-                return null;
-            }
-            $node = $node[$keys[0]];
-        }
+			return $context[$key];
+		}
 
-        return $this->has($key, $node);
-    }
+		return $defaultValue;
+	}
 
-    public function get($key = null, $node = null)
-    {
-        if($key == null) {
-            return $this->input;
-        }
+	public function set(string $key, $value) : ArrayAware
+	{
+		$this->input[$key] = $value;
 
-        if($node == null) {
-            $node = $this->input;
-        }
+		return $this;
+	}
 
-        if(!$this->has($key, $node)) {
-            return null;
-        }
+	public function all() : array
+	{
+		return $this->input;
+	}
 
-        if(preg_match('/\//', $key)) {
-            return $this->getChain($key, $node);
-        }
+	public function keys(string $path = null)
+	{
+		if($path == null) {
+			return array_keys($this->input);
+		}
 
-        return $node[$key];
-    }
+		$node = $this->get($path, []);
 
-    // $instance->get('a/b/c');
-    private function getChain($key, $node = null)
-    {
-        $this->filterChainKey($key);
+		if(!is_array($node)) {
+			return [];
+		}
 
-        $keys = explode('/', $key);
-        if(count($keys) == 1) {
-            return $node[$key];
-        }
+		return array_keys($node);
+	}
 
-        $key = join('/', array_slice($keys, 1));
+	public function getChain(string $key, $defaultValue = null)
+	{
+		if(empty($key)) {
+			return $this->context;
+		}
 
-        return $this->get($key, $node[$keys[0]]);
-    }
+		$keys = explode('/', $key);
 
-    private function filterChainKey(&$key)
-    {
-        if(preg_match('/(^\/|\/$)/', $key)) {
-            $key = preg_replace('/(^\/|\/$)/', '', $key);
-        }
-    }
+		if(empty($keys)) {
+			return $defaultValue;
+		}
+
+		if(count($keys) == 1) {
+			return $this->context[$key];
+		}
+
+		if(empty($keys[1])) {
+			return $this->get($keys[0], $defaultValue);
+		}
+
+		if(!$this->has($keys[0])) {
+			return $defaultValue;
+		}
+
+		$this->context = $this->context[$keys[0]];
+		$key = join('/', array_slice($keys, 1));
+
+		return $this->get($key, $defaultValue);
+	}
 }
